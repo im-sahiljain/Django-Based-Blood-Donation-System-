@@ -1,0 +1,323 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+
+  <!-- Font special for pages-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+    rel="stylesheet">
+
+  <!-- Main CSS-->
+  <link href="{% static "css/main.css" %}" rel="stylesheet" media="all">
+
+  <style>
+    body {
+      margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #ff9e9e);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      padding: 80px 0;
+      background-color: transparent;
+    }
+
+    .card-5 {
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-heading {
+      background-color: #4e73df;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding: 20px;
+    }
+
+    .title {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .form-row {
+      margin-bottom: 20px;
+    }
+
+    .name {
+      font-weight: 600;
+    }
+
+    .value {
+      width: 100%;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group:before,
+    .input-group:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .input-group input {
+      width: 100%;
+      height: 45px;
+      padding: 0 20px;
+      font-size: 16px;
+      border: 1px solid #e5e5e5;
+      border-radius: 25px;
+      color: #555555;
+      background-color: #ffffff;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #4e73df;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .rs-select2 {
+      width: 100%;
+      height: 45px;
+      position: relative;
+      display: block;
+    }
+
+    .rs-select2 select {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      color: #555555;
+      background-color: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .rs-select2 .select-dropdown {
+      position: absolute;
+      top: 14px;
+      right: 15px;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+
+    .btn--radius-2 {
+      display: inline-block;
+      padding: 0 25px;
+      height: 45px;
+      line-height: 45px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      border-radius: 25px;
+      background-color: #4e73df;
+      color: #ffffff;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn--radius-2:hover {
+      background-color: #375fc1;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+
+  <style>
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Additional Styles for Improved Appearance */
+    .input--style-5 {
+      border-radius: 25px;
+      padding: 12px 20px;
+      transition: border-color 0.3s;
+    }
+
+    .input--style-5:focus {
+      border-color: #4e73df;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .select--no-search .select-dropdown {
+      display: none;
+    }
+
+    .select--no-search select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23555555' d='M8 10L2 4h12L8 10z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
+      padding-right: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "blood/navbar.html" %}
+
+  <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <br><br><br>
+          <div class="card card-5">
+            <div class="card-heading">
+              <h2 class="title">Donor Signup</h2>
+            </div>
+            <div class="card-body">
+              <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-row">
+                  <div class="name">First Name</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field userForm.first_name|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Last Name</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field userForm.last_name|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Username</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field userForm.username|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Password</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field userForm.password|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Blood Group</div>
+                  <div class="value">
+                    <div class="input-group">
+                      <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="bloodgroup" class="input--style-5">
+                          <option disabled="disabled" selected="selected">Choose option</option>
+                          <option>O+</option>
+                          <option>O-</option>
+                          <option>A+</option>
+                          <option>A-</option>
+                          <option>B+</option>
+                          <option>B-</option>
+                          <option>AB+</option>
+                          <option>AB-</option>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Address</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field donorForm.address|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Mobile</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field donorForm.mobile|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="name">Profile Pic</div>
+                  <div class="value">
+                    <div class="input-group">
+                      {% render_field donorForm.profile_pic|attr:'required:true' class="input--style-5" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button class="btn btn--radius-2 btn-danger" type="submit">Register</button>
+                </div>
+              </form>
+              <br>
+              <p>Already have an account? <a href="/donor/donorlogin">Click here to login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "blood/footer.html" %}
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

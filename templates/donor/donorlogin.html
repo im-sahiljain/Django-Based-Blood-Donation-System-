@@ -1,0 +1,156 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+  <!-- Font special for pages-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+  <!-- Main CSS-->
+  <link href="{% static "css/main.css" %}" rel="stylesheet" media="all">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #ff9e9e);
+    }
+
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 50px 0;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .card-heading {
+      background-color: #ff4b5c;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 40px 30px;
+    }
+
+    .form-row {
+      margin-bottom: 20px;
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 10px;
+    }
+
+    .value {
+      width: 100%;
+    }
+
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+
+    .input--style-5 {
+      background: #f1f1f1;
+      border: none;
+      padding: 16px 0;
+      width: 100%;
+      border-radius: 0;
+      color: #333333;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .input--style-5:focus {
+      outline: none;
+    }
+
+    .btn--radius-2 {
+      border-radius: 5px;
+    }
+
+    .btn-danger {
+      background-color: #ff4b5c;
+      border-color: #ff4b5c;
+    }
+
+    .btn-danger:hover {
+      background-color: #ff3350;
+      border-color: #ff3350;
+    }
+
+    p {
+      text-align: center;
+      margin: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "blood/navbar.html" %}
+  <div class="page-wrapper">
+    <div class="wrapper wrapper--w790">
+      <br><br><br>
+      <div class="card card-5">
+        <div class="card-heading">
+          <h2 class="title">Donor Login</h2>
+        </div>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="name">Username</div>
+              <div class="value">
+                <div class="input-group">
+                  {% render_field form.username class="input--style-5"%}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="name">Password</div>
+              <div class="value">
+                <div class="input-group">
+                  {% render_field form.password class="input--style-5" %}
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn--radius-2 btn-danger" type="submit">Login</button>
+            </div>
+          </form>
+          <br>
+          <p>Does not have an account? <a href="/donor/donorsignup">Click here to register</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "blood/footer.html" %}
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+{% extends 'patient/patientbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+
+<style>
+    .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Optional: Set the height of the container to fill the viewport */
+    }
+
+    .card {
+        background: linear-gradient(to right, #e3eef3, #d6dfe9);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto; /* Center the card horizontally */
+        max-width: 500px; /* Set a max width for the card */
+    }
+
+    .form-row {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 8px;
+        font-family: 'Open Sans', sans-serif;
+        width: 100%; /* Adjust the width as needed */
+    }
+
+    .btn {
+        border-radius: 5px;
+        background-color: #ff5f5f;
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #e74c4c;
+    }
+
+    @media (min-width: 576px) {
+        .card {
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card {
+            max-width: 600px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .card {
+            max-width: 800px;
+        }
+    }
+</style>
+
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50 center-container">
+    <div class="wrapper wrapper--w790">
+        <div class="card">
+            <div class="card-heading">
+                <h2 class="title">MAKE BLOOD REQUEST</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="name">Patient Name:</div>
+                        <div class="value">
+                            <input type="text" name="patient_name" value="{{ request.user.username }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Patient Age:</div>
+                        <div class="value">
+                            <input type="text" name="patient_age" value="{{ request.user.patient.age }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="name">Reason:</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.reason|attr:'required:true' class="input--style-5" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Blood Group:</div>
+                        <div class="value">
+                            <input type="text" name="bloodgroup" value="{{ request.user.patient.bloodgroup }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Unit (in ml):</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.unit|attr:'required:true' class="input--style-5" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button class="btn btn--radius-2 btn-danger" type="submit">REQUEST</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

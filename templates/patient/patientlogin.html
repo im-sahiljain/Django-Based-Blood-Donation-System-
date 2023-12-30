@@ -1,0 +1,173 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static "css/main.css" %}" rel="stylesheet" media="all">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffffff, #ff9e9e);
+        }
+
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .card-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #333333;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 16px;
+            color: #666666;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .value {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .input--style-5 {
+            padding: 16px;
+            font-size: 16px;
+            color: #666666;
+            border: none;
+            border-radius: 10px;
+            background: #f0f0f0;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .input--style-5:focus {
+            background: #e6e6e6;
+        }
+
+        .btn--radius-2 {
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-danger {
+            background: #ff4f4f;
+            color: #ffffff;
+            border: 2px solid #ff4f4f;
+        }
+
+        .btn-danger:hover {
+            background: #ff6666;
+            border-color: #ff6666;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #666666;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+{% include "blood/navbar.html" %}
+
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Patient Login</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="name">Username</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field form.username class="input--style-5" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Password</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field form.password class="input--style-5" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <button class="btn btn--radius-2 btn-danger" type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="/patient/patientsignup">Click here to register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+{% include "blood/footer.html" %}
+</body>
+</html>

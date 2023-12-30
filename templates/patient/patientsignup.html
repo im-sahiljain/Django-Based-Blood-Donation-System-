@@ -1,0 +1,266 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Signup</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+    rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
+  <style>
+    body {
+      background-color: #f6f9fc;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 5px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: 600;
+    }
+
+    .form-control {
+      border: none;
+      border-radius: 0;
+      padding: 10px;
+      background-color: #f6f6f6;
+      box-shadow: none;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-center a {
+      color: #dc3545;
+      text-decoration: none;
+    }
+
+    #camera-container {
+      position: relative;
+    }
+
+    #camera-stream {
+      
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "blood/navbar.html" %}
+
+  <div class="container">
+    <h2>Patient Signup</h2>
+    <form method="POST" autocomplete="off" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        {% render_field userForm.first_name|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        {% render_field userForm.last_name|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        {% render_field userForm.username|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        {% render_field userForm.password|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        {% render_field patientForm.age|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="bloodgroup">Blood Group</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+          <select name="bloodgroup" class="form-control">
+            <option disabled="disabled" selected="selected">Choose option</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+          </select>
+          <div class="select-dropdown"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="disease">Disease</label>
+        {% render_field patientForm.disease|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="doctorname">Doctor Name</label>
+        {% render_field patientForm.doctorname|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        {% render_field patientForm.address|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        {% render_field patientForm.mobile|attr:'required:true' class="form-control" %}
+      </div>
+
+      <div class="form-group">
+        <label for="profile_pic">Profile Pic</label>
+        <div id="camera-container">
+          <div class="row">
+            <div class="col-md-6">
+              <div id="camera-buttons" style="margin-top: 10px;">
+                <button id="open-camera-btn" type="button" class="btn btn-primary">Open Camera</button>
+                <button id="capture-btn" type="button" class="btn btn-primary" style="display: none;">Capture</button>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div id="camera-stream-container" style="position: relative;">
+                <video id="camera-stream" autoplay style="display: none;"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <img id="preview" src="" alt="Profile Picture Preview" style="display: none; width: 200px; height: 200px;">
+                <input id="profile-pic-input" type="hidden" name="profile_pic">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+ 
+
+      <div class="text-center">
+        <button class="btn btn-danger" type="submit">Register</button>
+      </div>
+    </form>
+    <br>
+    <p class="text-center">Already have an account? <a href="/patient/patientlogin">Click here to login</a></p>
+  </div>
+
+  {% include "blood/footer.html" %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function() {
+        var video = document.getElementById('camera-stream');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var preview = document.getElementById('preview');
+        var profilePicInput = document.getElementById('profile-pic-input');
+        var stream;
+    
+        // Function to open the camera window
+        function openCamera() {
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(mediaStream) {
+              stream = mediaStream;
+              video.srcObject = stream;
+              video.play();
+              $('#open-camera-btn').hide();
+              $('#capture-btn').show();
+              $('#camera-stream').show();
+            })
+            .catch(function(err) {
+              console.log('Error accessing camera: ' + err);
+            });
+        }
+    
+        // Open camera when the "Open Camera" button is clicked
+        $('#open-camera-btn').click(function() {
+          openCamera();
+        });
+    
+        // Capture photo button click event
+        $('#capture-btn').click(function() {
+          // Draw the current video frame onto the canvas
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+          // Convert the canvas image to base64 data URL
+          var dataURL = canvas.toDataURL();
+    
+          // Set the data URL as the source of the preview image
+          preview.src = dataURL;
+          preview.style.display = 'block';
+    
+          // Set the data URL as the value of the hidden profile pic input field
+          profilePicInput.value = dataURL;
+        });
+    
+        // Add an event listener to the form submit event
+        $('#patient-signup-form').on('submit', function(e) {
+          // Prevent the form from submitting
+          e.preventDefault();
+    
+          // Show a pop-up message after form submission
+          if (confirm('Are you sure you want to register as a patient?')) {
+            // Submit the form
+            this.submit();
+          }
+        });
+      });
+    </script>
+    
+    
+  </body>
+</html>
+    
